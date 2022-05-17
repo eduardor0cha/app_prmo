@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-class  HomePage extends StatefulWidget {
+
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -13,8 +13,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-          title: Text('Pesquisar'),
-        backgroundColor: Color(0xFF10397B),
+        title: const Text('Pesquisar'),
+        backgroundColor: const Color(0xFF10397B),
       ),
       body: buildBody(),
     );
@@ -30,33 +30,33 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             children: [
               Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    'TOP DESTINOS MAIS BUSCADOS',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Text(
+                      'TOP DESTINOS MAIS BUSCADOS',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold),
                     ),
-                Text(
-                  'Corre que tá rolando muita promoção',
-                  style: TextStyle(color: Colors.white, fontSize: 15),
-                  ),
-                  const SizedBox(height: 8),
-                  ElevatedButton(
+                    const Text(
+                      'Corre que tá rolando muita promoção',
+                      style: TextStyle(color: Colors.white, fontSize: 15),
+                    ),
+                    const SizedBox(height: 8),
+                    ElevatedButton(
                       onPressed: () {},
-                      child: Text(
+                      child: const Text(
                         'Eu quero',
                         style: TextStyle(color: Colors.black),
                       ),
-                    style:
-                    ElevatedButton.styleFrom(primary: Color(0xFFF8FF04)),
-                  )
-                ],
-          ),
-    ),
+                      style:
+                          ElevatedButton.styleFrom(primary: Color(0xFFF8FF04)),
+                    )
+                  ],
+                ),
+              ),
               const SizedBox(width: 24),
               const Placeholder(
                 fallbackHeight: 150,
@@ -66,70 +66,97 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         Card(
-          child: Column(
-            children: [
-              Placeholder(fallbackHeight: 150),
-              Padding(
-                  padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            child: Column(children: [
+          const Placeholder(
+            fallbackHeight: 150,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const Text(
+                "Pacote Cancún 2021",
+                style: TextStyle(
+                  fontSize: 21,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Text(
+                "Aéreo - Hotel All Inclusive",
+                style: TextStyle(color: Colors.grey[700]),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Row(
                 children: [
+                  Icon(
+                    Icons.wb_sunny_outlined,
+                    color: Colors.grey[700],
+                  ),
+                  const SizedBox(
+                    width: 4,
+                  ),
                   Text(
-                    'Pacote Cancún 2021',
-                    style: TextStyle(
-                      fontSize: 21,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    "5 Diárias",
+                    style: TextStyle(color: Colors.grey[700]),
                   ),
-                  SizedBox(height: 8),
-                  Text('Aéreo - Hotel All incluse'),
-                  SizedBox(height: 8),
-                  Row(
-                    children: const [
-                      Icon(Icons.wb_sunny_outlined),
-                      SizedBox(width: 4),
-                      Text('05 Diárias'),
-                      SizedBox(width: 8),
-                      Icon(Icons.person_outline),
-                      SizedBox(width: 4),
-                      Text('01 Pessoa'),
-
-                    ],
+                  const SizedBox(
+                    width: 8,
                   ),
-                  SizedBox(height: 8),
-                  Text('A partir de R\$ 6816'),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        'R\$ 3.749',
-                        style: TextStyle(
-                          fontSize: 28,
-                          color: Colors.orange,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Text('Taxa grátis em até 12x'),
-                    ],
+                  Icon(
+                    Icons.person_outline,
+                    color: Colors.grey[700],
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(
+                    width: 4,
+                  ),
                   Text(
-                    'Cancelamento grátis',
-                    style: TextStyle(
-                      color: Colors.green[700],
-                      fontWeight: FontWeight.bold
-                    ),
+                    "1 Pessoa",
+                    style: TextStyle(color: Colors.grey[700]),
                   ),
                 ],
               ),
-              )
-            ],
-          ),
-        ),
-
+              const SizedBox(
+                height: 8,
+              ),
+              Text(
+                "A partir de R\$ 6.816",
+                style: TextStyle(color: Colors.grey[700]),
+              ),
+              Row(
+                children: [
+                  const Text(
+                    "R\$ 3.749",
+                    style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFFD6C00)),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    "Taxa Grátis em até 12x",
+                    style: TextStyle(color: Colors.grey[700]),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Text(
+                "Cancelamento Grátis!",
+                style: TextStyle(color: Colors.green[800]),
+              ),
+            ]),
+          )
+        ])),
       ],
     );
   }
