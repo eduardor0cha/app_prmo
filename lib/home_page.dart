@@ -22,10 +22,10 @@ class _HomePageState extends State<HomePage> {
 
   buildBody() {
     return ListView(
+      padding: const EdgeInsets.all(16),
       children: [
         Container(
-          padding: EdgeInsets.all(16),
-          margin: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           color: Colors.purple,
           child: Row(
             children: [
@@ -46,13 +46,15 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const SizedBox(height: 8),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        print("a");
+                      },
                       child: const Text(
                         'Eu quero',
                         style: TextStyle(color: Colors.black),
                       ),
-                      style:
-                          ElevatedButton.styleFrom(primary: Color(0xFFF8FF04)),
+                      style: ElevatedButton.styleFrom(
+                          primary: const Color(0xFFF8FF04)),
                     )
                   ],
                 ),
@@ -67,18 +69,56 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         const SizedBox(height: 16),
-        Card(
-            child: Column(children: [
-          const Placeholder(
-            fallbackHeight: 150,
+        buildCardPacoteTuristico(
+          imagem:
+              "https://a.cdn-hotels.com/gdcs/production188/d923/47643da8-6e46-4c83-8379-95b43b9e2684.jpg",
+          titulo: "Pacote Cancún 2021",
+          transporte: "Aéreo - Hotel All Inclusive",
+          numDiarias: 5,
+          numPessoas: 1,
+          precoAntigo: 6819,
+          precoAtual: 3749,
+          numParcelas: 12,
+        ),
+        buildCardPacoteTuristico(
+          imagem:
+              "https://www.praias-360.com.br/img-600/al/coruripe/al-coruripe-praia-de-miai-de-baixo-020.jpg",
+          titulo: "Pacote Miaí de Baixo 2022",
+          transporte: "Van - Hotel All Inclusive",
+          numDiarias: 7,
+          numPessoas: 40,
+          precoAntigo: 300,
+          precoAtual: 250,
+          numParcelas: 6,
+        ),
+      ],
+    );
+  }
+
+  buildCardPacoteTuristico({
+    required String imagem,
+    required String titulo,
+    required String transporte,
+    required int numDiarias,
+    required int numPessoas,
+    required double precoAntigo,
+    required double precoAtual,
+    required int numParcelas,
+  }) {
+    return Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        child: Column(children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
+            child: Image.network(imagem),
           ),
           Padding(
             padding: const EdgeInsets.all(16),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const Text(
-                "Pacote Cancún 2021",
-                style: TextStyle(
+              Text(
+                titulo,
+                style: const TextStyle(
                   fontSize: 21,
                   fontWeight: FontWeight.bold,
                 ),
@@ -87,7 +127,7 @@ class _HomePageState extends State<HomePage> {
                 height: 8,
               ),
               Text(
-                "Aéreo - Hotel All Inclusive",
+                transporte,
                 style: TextStyle(color: Colors.grey[700]),
               ),
               const SizedBox(
@@ -103,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                     width: 4,
                   ),
                   Text(
-                    "5 Diárias",
+                    "$numDiarias Diárias",
                     style: TextStyle(color: Colors.grey[700]),
                   ),
                   const SizedBox(
@@ -117,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                     width: 4,
                   ),
                   Text(
-                    "1 Pessoa",
+                    "$numPessoas Pessoas",
                     style: TextStyle(color: Colors.grey[700]),
                   ),
                 ],
@@ -126,14 +166,14 @@ class _HomePageState extends State<HomePage> {
                 height: 8,
               ),
               Text(
-                "A partir de R\$ 6.816",
+                "A partir de R\$ $precoAntigo",
                 style: TextStyle(color: Colors.grey[700]),
               ),
               Row(
                 children: [
-                  const Text(
-                    "R\$ 3.749",
-                    style: TextStyle(
+                  Text(
+                    "R\$ $precoAtual",
+                    style: const TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFFFD6C00)),
@@ -142,7 +182,7 @@ class _HomePageState extends State<HomePage> {
                     width: 8,
                   ),
                   Text(
-                    "Taxa Grátis em até 12x",
+                    "Taxa Grátis em até ${numParcelas}x",
                     style: TextStyle(color: Colors.grey[700]),
                   ),
                 ],
@@ -156,8 +196,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ]),
           )
-        ])),
-      ],
-    );
+        ]));
   }
 }
