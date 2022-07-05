@@ -29,7 +29,13 @@ class _TourPackageCardState extends State<TourPackageCard> {
                 ClipRRect(
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(8)),
-                  child: Image.network(widget.pacoteTuristico.imagem),
+                  child: Container(
+                    height: 120,
+                    child: Image.network(
+                      widget.pacoteTuristico.imagem,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
                 Container(
                   padding:
@@ -70,32 +76,40 @@ class _TourPackageCardState extends State<TourPackageCard> {
                     const SizedBox(
                       height: 8,
                     ),
-                    Row(
+                    Wrap(
                       children: [
-                        Icon(
-                          Icons.wb_sunny_outlined,
-                          color: Colors.grey[700],
-                        ),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        Text(
-                          "${widget.pacoteTuristico.numDiarias} Diárias",
-                          style: TextStyle(color: Colors.grey[700]),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.wb_sunny_outlined,
+                              color: Colors.grey[700],
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              "${widget.pacoteTuristico.numDiarias} Diárias",
+                              style: TextStyle(color: Colors.grey[700]),
+                            ),
+                          ],
                         ),
                         const SizedBox(
                           width: 8,
                         ),
-                        Icon(
-                          Icons.person_outline,
-                          color: Colors.grey[700],
-                        ),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        Text(
-                          "${widget.pacoteTuristico.numPessoas} Pessoas",
-                          style: TextStyle(color: Colors.grey[700]),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.person_outline,
+                              color: Colors.grey[700],
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              "${widget.pacoteTuristico.numPessoas} Pessoas",
+                              style: TextStyle(color: Colors.grey[700]),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -106,14 +120,16 @@ class _TourPackageCardState extends State<TourPackageCard> {
                       "A partir de R\$ ${widget.pacoteTuristico.precoAntigo}",
                       style: TextStyle(color: Colors.grey[700]),
                     ),
-                    Row(
+                    Wrap(
                       children: [
-                        Text(
-                          "R\$ ${widget.pacoteTuristico.precoAtual}",
-                          style: const TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFFFD6C00)),
+                        FittedBox(
+                          child: Text(
+                            "R\$ ${widget.pacoteTuristico.precoAtual}",
+                            style: const TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFFFD6C00)),
+                          ),
                         ),
                         const SizedBox(
                           width: 8,
