@@ -29,11 +29,12 @@ class _TourPackageCardState extends State<TourPackageCard> {
                 ClipRRect(
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(8)),
-                  child: Container(
-                    height: 120,
+                  child: FractionallySizedBox(
+                    widthFactor: 1,
                     child: Image.network(
                       widget.pacoteTuristico.imagem,
                       fit: BoxFit.cover,
+                      height: 120,
                     ),
                   ),
                 ),
