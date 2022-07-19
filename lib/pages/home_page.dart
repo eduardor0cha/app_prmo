@@ -1,5 +1,5 @@
 import 'package:app_prmo/domain/pacote_turistico.dart';
-import 'package:app_prmo/pages/ads_page.dart';
+import 'package:app_prmo/pages/grid_pacotes_page.dart';
 import 'package:app_prmo/widgets/tour_package_card.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<PacoteTuristico> pacotes = DB.getPacotesTuristicos();
+  Future<List<PacoteTuristico>> pacotes = DB.getPacotesTuristicos();
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return const AdsPage();
+                          return const GridPacotesPage();
                         }));
                       },
                       child: const Text(
@@ -79,11 +79,23 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         const SizedBox(height: 16),
-        ListView.builder(
-          itemCount: pacotes.length,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) => TourPackageCard(pacoteTuristico: pacotes[index]),
+        FutureBuilder<List<PacoteTuristico>>(
+          future: pacotes,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<PacoteTuristico> pacotesCarregados = snapshot.data ?? [];
+
+              return ListView.builder(
+                itemCount: pacotesCarregados.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) =>
+                    TourPackageCard(pacoteTuristico: pacotesCarregados[index]),
+              );
+            }
+
+            return const Center(child: CircularProgressIndicator());
+          },
         ),
       ],
     );

@@ -2,7 +2,7 @@ import 'package:app_prmo/domain/pacote_turistico.dart';
 
 class DB {
   static final List<PacoteTuristico> _pacotes = [
-      PacoteTuristico(
+    PacoteTuristico(
       imagem:
           "https://a.cdn-hotels.com/gdcs/production188/d923/47643da8-6e46-4c83-8379-95b43b9e2684.jpg",
       titulo: "Pacote Cancún 2021",
@@ -13,7 +13,6 @@ class DB {
       precoAtual: 3749,
       numParcelas: 12,
       porcentDesconto: 45,
-      
       cidade: "Cancún - México",
       validade: "De 01 ago 2022 até 30 nov 2022",
     ),
@@ -33,5 +32,8 @@ class DB {
     ),
   ];
 
-  static List<PacoteTuristico> getPacotesTuristicos() => _pacotes;
+  static Future<List<PacoteTuristico>> getPacotesTuristicos() async {
+    await Future.delayed(const Duration(seconds: 10));
+    return _pacotes;
+  }
 }

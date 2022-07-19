@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../domain/pacote_turistico.dart';
 import '../widgets/tour_package_card.dart';
-import 'ads_page.dart';
 
 class GridPacotesPage extends StatefulWidget {
   const GridPacotesPage({Key? key}) : super(key: key);
@@ -13,7 +12,7 @@ class GridPacotesPage extends StatefulWidget {
 }
 
 class _GridPacotesPageState extends State<GridPacotesPage> {
-  List<PacoteTuristico> pacotes = DB.getPacotesTuristicos();
+  Future<List<PacoteTuristico>> pacotes = DB.getPacotesTuristicos();
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +27,28 @@ class _GridPacotesPageState extends State<GridPacotesPage> {
   }
 
   buildBody() {
-    return GridView.builder(
-      padding: const EdgeInsets.all(16),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 0.34,
-      ),
-      itemCount: pacotes.length,
-      itemBuilder: (BuildContext context, int index) => TourPackageCard(pacoteTuristico: pacotes[index]),
+    return FutureBuilder<List<PacoteTuristico>>(
+      future: pacotes,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          List<PacoteTuristico> pacotesCarregados = snapshot.data ?? [];
+
+          return GridView.builder(
+            padding: const EdgeInsets.all(16),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 0.34,
+            ),
+            itemCount: pacotesCarregados.length,
+            itemBuilder: (BuildContext context, int index) =>
+                TourPackageCard(pacoteTuristico: pacotesCarregados[index]),
+          );
+        }
+
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 }
