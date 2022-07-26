@@ -33,7 +33,7 @@ class DB {
   ];
 
   static Future<List<PacoteTuristico>> getPacotesTuristicos() async {
-    await Future.delayed(const Duration(seconds: 10));
+    await Future.delayed(const Duration(seconds: 2));
     return _pacotes;
   }
 }
