@@ -12,6 +12,8 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -19,53 +21,68 @@ class _LoginPageState extends State<LoginPage> {
         resizeToAvoidBottomInset: false,
         body: Padding(
           padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Placeholder(
-                fallbackHeight: 200,
-              ),
-              const SizedBox(
-                height: 32,
-              ),
-              TextField(
-                controller: userController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "E-mail",
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Placeholder(
+                  fallbackHeight: 200,
                 ),
-              ),
-              const SizedBox(
-                height: 32,
-              ),
-              TextField(
-                obscureText: true,
-                controller: passwordController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Password",
+                const SizedBox(
+                  height: 32,
                 ),
-              ),
-              const SizedBox(
-                height: 32,
-              ),
-              ElevatedButton(
-                onPressed: onPressed,
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(0xFFE81F7C),
+                TextFormField(
+                  controller: userController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "E-mail",
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Este campo é obrigatório";
+                    }
+                    return null;
+                  },
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 18),
-                  child: Text(
-                    "Entrar com uma conta Hurb",
-                    style: TextStyle(
-                      fontSize: 21,
-                      fontWeight: FontWeight.w500,
+                const SizedBox(
+                  height: 32,
+                ),
+                TextFormField(
+                  obscureText: true,
+                  controller: passwordController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Password",
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Este campo é obrigatório";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 32,
+                ),
+                ElevatedButton(
+                  onPressed: onPressed,
+                  style: ElevatedButton.styleFrom(
+                    primary: const Color(0xFFE81F7C),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 18),
+                    child: Text(
+                      "Entrar com uma conta Hurb",
+                      style: TextStyle(
+                        fontSize: 21,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -73,21 +90,27 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void onPressed() {
-    String userLogin = "joao@gmail.com";
-    String passwordLogin = "123456";
+    if (_formKey.currentState?.validate() ?? false) {
+      String userLogin = "joao@gmail.com";
+      String passwordLogin = "123456";
 
-    String user = userController.text;
-    String password = passwordController.text;
+      String user = userController.text;
+      String password = passwordController.text;
 
-    if (userLogin == user && password == passwordLogin) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return const HomePage();
-          },
-        ),
-      );
+      if (userLogin == user && password == passwordLogin) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return const HomePage();
+            },
+          ),
+        );
+      } else {
+        print("usuário e/ou senha incorretos");
+      }
+    } else {
+      print("Formulário inválido");
     }
   }
 }
